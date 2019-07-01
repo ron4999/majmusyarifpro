@@ -1,0 +1,19 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="font_size_small">10sp</dimen>
+    <dimen name="font_size_medium">20sp</dimen>
+    <dimen name="font_size_large">30sp</dimen>
+    <dimen name="textmenu">5pt</dimen>
+    <dimen name="iconmenu">70dp</dimen>
+    <dimen name="texttvwaktusholat">15dp</dimen>
+    <dimen name="texttvwaktumundursholat">25dp</dimen>
+    <dimen name="texttvjamsholat">10dp</dimen>
+    <dimen name="texttvtanggal">10dp</dimen>
+    <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+</resources>
