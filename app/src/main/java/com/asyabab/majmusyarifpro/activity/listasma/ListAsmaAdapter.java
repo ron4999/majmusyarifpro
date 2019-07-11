@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.asyabab.majmusyarifpro.model.Asma;
-import com.asyabab.majmusyarifpro.modelquran.Ayat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +27,18 @@ public class ListAsmaAdapter extends RecyclerView.Adapter<ListAsmaAdapter.AsmaHo
     private ArrayList<Asma> asmaList;
     private Context mContext;
     private static Typeface face;
+    Typeface facemedium, facethin,facelight;
+
     ListAsmaAdapter(Context context, ArrayList<Asma> data) {
         this.asmaList = data;
         this.mContext=context;
         TextView rowAyata, rowArabica, rowTerjemahana;
 
-        face= ResourcesCompat.getFont(context, R.font.arabic);
-//        rowAyata =(TextView) findViewById(R.id.rowAyat);
-//        rowArabica=(TextView) findViewById(R.id.rowArabic);
-//        rowTerjemahana=(TextView) findViewById(R.id.rowTerjemahan);
+        face= ResourcesCompat.getFont(context, R.font.aldabhi);
 
+        facemedium= ResourcesCompat.getFont(context, R.font.visbycfmedium);
+        facethin= ResourcesCompat.getFont(context, R.font.visbyoblique);
+        facelight= ResourcesCompat.getFont(context, R.font.visbylight);
 
     }
 
@@ -82,10 +83,10 @@ public class ListAsmaAdapter extends RecyclerView.Adapter<ListAsmaAdapter.AsmaHo
             rowAsma.get(2).setText(asma.getArab());
             rowAsma.get(3).setText(asma.getIndonesia());
 
-            rowAsma.get(0).setTypeface(face);
-            rowAsma.get(1).setTypeface(face);
+            rowAsma.get(0).setTypeface(facemedium);
+            rowAsma.get(1).setTypeface(facemedium);
             rowAsma.get(2).setTypeface(face);
-            rowAsma.get(3).setTypeface(face);
+            rowAsma.get(3).setTypeface(facethin);
 
         }
     }

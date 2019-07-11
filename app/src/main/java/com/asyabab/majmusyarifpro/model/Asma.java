@@ -11,7 +11,7 @@ public class Asma extends ModelAsmaulHusna {
     }
 
     public String getLatin() {
-        return super.getArab();
+        return super.getLatin();
     }
 
     public String getArab() {
