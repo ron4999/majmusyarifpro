@@ -195,6 +195,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
         public void onFinish() {
             ///Berjalan saat waktu telah selesai atau berhenti
             Toast.makeText(HomeActivity.this, "Waktu Telah Berakhir", Toast.LENGTH_LONG).show();
+
         }
     }
 
