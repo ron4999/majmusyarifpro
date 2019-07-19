@@ -1,23 +1,24 @@
-package com.asyabab.majmusyarifpro.activity;
-
+package com.asyabab.majmusyarifpro.activity.listjadwal;
 import android.graphics.Typeface;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asyabab.majmusyarifpro.R;
+import com.asyabab.majmusyarifpro.base.BaseActivity;
+import com.asyabab.majmusyarifpro.model.Jadwal;
+import java.util.ArrayList;
 
-import butterknife.BindView;
 
-public class JadwalSholatActivity extends AppCompatActivity {
+public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  implements ListJadwalView {
+
     Typeface facebold, facemedium, facethin;
     TextView textashar;
     TextView textduhur;
@@ -37,6 +38,7 @@ public class JadwalSholatActivity extends AppCompatActivity {
     TextView tvjamsubuh;
     TextView tvjamterbit;
     SwitchCompat scimsak;
+    private ListJadwalAdapter listJadwalAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,12 @@ public class JadwalSholatActivity extends AppCompatActivity {
         textsubuh.setTypeface(facemedium);
         textterbit.setTypeface(facemedium);
 
+        tvjamashar.setText(listJadwalAdapter.getItemCount());
+        listJadwalAdapter = new ListJadwalAdapter(getApplicationContext(),new ArrayList<Jadwal>());
+
+        mPresenter.loadTanggal("2019-7-15");
+
+
         scimsak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +93,7 @@ public class JadwalSholatActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
     }
@@ -107,4 +116,15 @@ public class JadwalSholatActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    @Override
+    public ListJadwalPresenter initPresenter() {
+        return new ListJadwalPresenter( this);
+    }
+
+
+    public void onLoad(ArrayList<Jadwal> data) {
+        listJadwalAdapter.refresh(data);
+    }
+
 }

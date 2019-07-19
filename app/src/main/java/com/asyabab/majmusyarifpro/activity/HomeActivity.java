@@ -4,13 +4,18 @@ package com.asyabab.majmusyarifpro.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -28,10 +33,14 @@ import android.widget.Toast;
 
 import com.asyabab.majmusyarifpro.R;
 import com.asyabab.majmusyarifpro.activity.listasma.AsmaulHusna;
+import com.asyabab.majmusyarifpro.activity.listjadwal.JadwalSholatActivity;
 import com.asyabab.majmusyarifpro.activity.listsurah.QuranActivity;
 import com.asyabab.majmusyarifpro.base.HttpHandler;
+import com.asyabab.majmusyarifpro.database.DatabaseContract;
+import com.asyabab.majmusyarifpro.database.DatabaseHelper;
 import com.asyabab.majmusyarifpro.model.Items;
-import com.asyabab.majmusyarifpro.model.Jadwal;
+import com.asyabab.majmusyarifpro.model.JadwalTemp;
+import com.asyabab.majmusyarifpro.model.ModelJadwal;
 import com.asyabab.majmusyarifpro.network.ApiClient;
 import com.asyabab.majmusyarifpro.network.ApiInterface;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -46,6 +55,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -61,10 +71,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+    private SQLiteDatabase database;
 
 
     String zuhur, ashar, magrib, isya, subuh, tanggalmasehi, tanggalhijriyah, subuhbesok;
-    List<Jadwal> jadwal;
+    List<JadwalTemp> jadwaltemp;
+    List<ModelJadwal> jadwalList = new ArrayList<>();
+
     String date=new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).format(new Date());
     private static Typeface facebold, facemedium, facethin;
 
@@ -127,16 +140,13 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        pd = new ProgressDialog(HomeActivity.this);
-        pd.setTitle("Loading . . . ");
-        pd.setMessage("Waiting . . .");
-        pd.setCancelable(false);
-        pd.show();
+
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         facebold= ResourcesCompat.getFont(getApplicationContext(), R.font.visbybold);
         facemedium= ResourcesCompat.getFont(getApplicationContext(), R.font.visbycfmedium);
         facethin= ResourcesCompat.getFont(getApplicationContext(), R.font.visbycf);
+        database = DatabaseHelper.getDatabase();
 
         tvJam.setTypeface(facebold);
         tvLokasi.setTypeface(facemedium);
@@ -160,13 +170,31 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
 
         handler.postDelayed(runnable, 1000);
 
-        actionLoad();
         refresh();
+        koneksi();
 
 
-        new GetContacts().execute();
+    }
+    private void koneksi(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            actionLoad();
+            new GetContacts().execute();
 
 
+            pd = new ProgressDialog(HomeActivity.this);
+            pd.setTitle("Loading . . . ");
+            pd.setMessage("Waiting . . .");
+            pd.setCancelable(false);
+            pd.show();
+            connected = true;
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi Internet",Toast.LENGTH_SHORT).show();
+
+            connected = false;
+        }
     }
 
     //Membuat InnerClass untuk konfigurasi Countdown Time
@@ -188,6 +216,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
 
             //Menampilkannya pada TexView
+
             tvWaktumundursholat.setText("(-" +waktu+")");
         }
 
@@ -195,6 +224,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
         public void onFinish() {
             ///Berjalan saat waktu telah selesai atau berhenti
             Toast.makeText(HomeActivity.this, "Waktu Telah Berakhir", Toast.LENGTH_LONG).show();
+
 
         }
     }
@@ -328,75 +358,88 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
                                         @Override
                                         public void onResponse(Call<Items> call, Response<Items> response) {
                                             Log.d("Data ", " respon" + response.body().getItems());
-                                            jadwal = response.body().getItems();
-                                            Log.d("respon data ", "" + new Gson().toJson(jadwal));
+                                            jadwaltemp = response.body().getItems();
+                                            Log.d("respon data ", "" + new Gson().toJson(jadwaltemp));
 
-                                            if (jadwal != null) {
-                                                zuhur = jadwal.get(0).getZuhur();
-                                                ashar = jadwal.get(0).getAshar();
-                                                magrib = jadwal.get(0).getMaghrib();
-                                                isya = jadwal.get(0).getIsya();
-                                                subuh = jadwal.get(0).getFajar();
-                                                subuhbesok = jadwal.get(1).getFajar();
+                                            if (jadwaltemp != null) {
 
-                                                String tanggallama = jadwal.get(1).getTanggal();
+                                                //insert to database
+                                                for (int i=0; i<7; i++){
+                                                    jadwalList.add(new ModelJadwal(jadwaltemp.get(i).getTanggal(), jadwaltemp.get(i).getSubuh(), jadwaltemp.get(i).getZuhur(), jadwaltemp.get(i).getAshar(), jadwaltemp.get(i).getMaghrib(), jadwaltemp.get(i).getIsya()));
+                                                }
+
+                                                zuhur = jadwaltemp.get(0).getZuhur();
+                                                ashar = jadwaltemp.get(0).getAshar();
+                                                magrib = jadwaltemp.get(0).getMaghrib();
+                                                isya = jadwaltemp.get(0).getIsya();
+                                                subuh = jadwalList.get(0).getFajar();
+                                                subuhbesok = jadwaltemp.get(1).getFajar();
+                                                SQLiteStatement statement = database.compileStatement(DatabaseContract.TableJadwalSholat.QUERY_STATEMENT);
+                                                List<ModelJadwal> jadwallist = jadwalList;
+
+                                                //masukkan ke database
+                                                for (ModelJadwal jadwal : jadwallist) {
+                                                    statement.bindString(1, jadwal.getTanggal());
+                                                    statement.bindString(2, jadwal.getSubuh());
+                                                    statement.bindString(3, jadwal.getZuhur());
+                                                    statement.bindString(4, jadwal.getAshar());
+                                                    statement.bindString(5, jadwal.getMaghrib());
+                                                    statement.bindString(6, jadwal.getIsya());
+                                                    statement.execute();
+                                                    statement.clearBindings();
+                                                }
+
+                                                //konvert tanggal besok dan waktu sholat besok (baru subuh)
+                                                String tanggalSekarang = jadwaltemp.get(0).getTanggal();
+                                                String tanggalBesok = jadwaltemp.get(1).getTanggal();
+
                                                 Log.d("respon :", "" + zuhur);
-//                                                txtDzuhur.setText(zuhur);
-//                                                txtAshar.setText(ashar);
-//                                                txtMaghrib.setText(magrib);
-//                                                txtIsya.setText(isya);
                                                 tvJamsholat.setText(subuh);
-                                                SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                                                SimpleDateFormat stfirst = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                                String waktusubuh=tanggalSekarang+" "+subuh;
+                                                String waktuduhur=tanggalSekarang+" "+zuhur;
+                                                String waktuashar=tanggalSekarang+" "+ashar;
+                                                String waktumaghrib=tanggalSekarang+" "+magrib;
+                                                String waktuisya=tanggalSekarang+" "+isya;
+                                                String waktusubuhbesok=tanggalBesok+" "+subuhbesok;
+                                                Log.d("subuhbesok :", "" + waktusubuhbesok);
 
-                                                String waktulengkap=tanggallama+" "+subuhbesok;
-                                                Log.d("tes",waktulengkap + " hours, ");
+                                                int hasil=convert(waktuduhur).compareTo(new Date());
+                                                Log.d("hasil :", "" + hasil);
 
-                                                String strdate1 = format.format(new Date());
-                                                Date waktusholat= null;
-                                                try {
-                                                    waktusholat = stfirst.parse(waktulengkap);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
+                                                if (hasil>0){
+                                                    tvWaktusholat.setText("Subuh");
+                                                    statusTv(convert(waktusubuh));
+                                                }else{
+                                                    if (hasil>0){
+                                                    tvWaktusholat.setText("Dhuhur");
+                                                    statusTv(convert(waktuduhur));
+                                                }else{
+                                                    hasil=convert(waktuashar).compareTo(new Date());
+                                                    if (hasil>0){
+                                                        tvWaktusholat.setText("Ashar");
+                                                        statusTv(convert(waktuashar));
+                                                    }else{
+                                                        tvWaktusholat.setText("Maghrib");
+                                                        hasil=convert(waktumaghrib).compareTo(new Date());
+                                                        if (hasil>0){
+                                                            statusTv(convert(waktumaghrib));
+                                                        }else {
+                                                            if (hasil > 0) {
+                                                                tvWaktusholat.setText("Isya");
+                                                                statusTv(convert(waktuisya));
+                                                            } else {
+                                                                hasil = convert(waktusubuhbesok).compareTo(new Date());
+                                                                if (hasil > 0) {
+                                                                    tvWaktusholat.setText("Subuh");
+                                                                    statusTv(convert(waktusubuhbesok));
+                                                                    }
+                                                                }
+                                                            }
+
+                                                        }
+                                                    }
                                                 }
 
-                                                String stpdate1 = format.format(waktusholat);
-                                                Log.d("tes",waktusholat + " hours, ");
-
-                                                Log.d("str",strdate1 + " hours, ");
-                                                Log.d("stp",stpdate1 + " hours, ");
-
-                                                Date d1 = null;
-                                                Date d2 = null;
-
-                                                try {
-                                                    d1 = format.parse(strdate1);
-                                                    d2 = format.parse(stpdate1);
-
-//in milliseconds
-                                                    Log.d("awal",d1 + " hours, ");
-                                                    Log.d("akhir",d2 + " hours, ");
-
-                                                    long diff = d2.getTime() - d1.getTime();
-
-                                                    long diffSeconds = diff / 1000 % 60;
-                                                    long diffMinutes = diff / (60 * 1000) % 60;
-                                                    long diffHours = diff / (60 * 60 * 1000) % 24;
-                                                    long diffDays = diff / (24 * 60 * 60 * 1000);
-
-                                                    Log.d("days",diffDays + " days, ");
-                                                    Log.d("hours",diffHours + " hours, ");
-                                                    Log.d("minutes",diffMinutes + " minutes, ");
-                                                    Log.d("seconds",diffSeconds + " seconds.");
-
-                                                    waktumundur=(diffHours*3600)+(diffMinutes*60)+diffSeconds;
-                                                    timerClass = new TimerClass(1000 * waktumundur, 1000);
-                                                    timerClass.start();
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                    Log.d("Error", "lokasi" + lokasi);
-
-                                                }
                                                 Log.d("Test", "lokasi" + lokasi);
                                                 tvLokasi.setText(lokasi);
                                                 tvTanggalmasehi.setText(tanggalmasehi);
@@ -432,6 +475,54 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
             });
 
 
+        }
+    }
+
+    public Date convert(String waktu){
+        SimpleDateFormat stfirst = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date waktusholat= null;
+        try {
+            waktusholat = stfirst.parse(waktu);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return waktusholat;
+
+    }
+
+    public void statusTv(Date waktu){
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String strdate1 = format.format(new Date());
+        String stpdate1 = format.format(waktu);
+
+        Date d1 = null;
+        Date d2 = null;
+
+        try {
+            d1 = format.parse(strdate1);
+            d2 = format.parse(stpdate1);
+
+//in milliseconds
+            Log.d("awal",d1 + " hours, ");
+            Log.d("akhir",d2 + " hours, ");
+
+            long diff = d2.getTime() - d1.getTime();
+
+            long diffSeconds = diff / 1000 % 60;
+            long diffMinutes = diff / (60 * 1000) % 60;
+            long diffHours = diff / (60 * 60 * 1000) % 24;
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+
+            Log.d("days",diffDays + " days, ");
+            Log.d("hours",diffHours + " hours, ");
+            Log.d("minutes",diffMinutes + " minutes, ");
+            Log.d("seconds",diffSeconds + " seconds.");
+
+            waktumundur=(diffHours*3600)+(diffMinutes*60)+diffSeconds;
+            timerClass = new TimerClass(1000 * waktumundur, 1000);
+            timerClass.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

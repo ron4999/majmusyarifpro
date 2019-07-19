@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Items {
     @SerializedName("items")
-    public List<Jadwal> items;
+    public List<JadwalTemp> items;
     String status_valid;
 
     public String getStatus_valid() {
@@ -18,15 +18,15 @@ public class Items {
         this.status_valid = status_valid;
     }
 
-    public Items(List<Jadwal> items) {
+    public Items(List<JadwalTemp> items) {
         this.items = items;
     }
 
-    public List<Jadwal> getItems() {
+    public List<JadwalTemp> getItems() {
         return items;
     }
 
-    public void setItems(List<Jadwal> items) {
+    public void setItems(List<JadwalTemp> items) {
         this.items = items;
     }
 }

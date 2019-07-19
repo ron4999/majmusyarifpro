@@ -1,51 +1,37 @@
 package com.asyabab.majmusyarifpro.model;
 
-import com.google.gson.annotations.SerializedName;
 
+public class Jadwal extends  ModelJadwal{
 
-
-
-public class Jadwal {
-    @SerializedName("date_for")
-    public String tanggal;
-    @SerializedName("fajr")
-    public String fajar;
-    @SerializedName("shurooq")
-    public String subuh;
-    @SerializedName("dhuhr")
-    public String zuhur;
-    @SerializedName("asr")
-    public String ashar;
-    @SerializedName("maghrib")
-    public String maghrib;
-    @SerializedName("isha")
-    public String isya;
+    public Jadwal(String mtanggal, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+        super(mtanggal, msubuh, mzuhur, mashar, mmaghrib, misya);
+    }
 
     public String getTanggal() {
-        return tanggal;
+        return super.getTanggal();
     }
 
     public String getFajar() {
-        return fajar;
+        return super.getFajar();
     }
 
     public String getSubuh() {
-        return subuh;
+        return super.getSubuh();
     }
 
     public String getZuhur() {
-        return zuhur;
+        return super.getZuhur();
     }
 
     public String getAshar() {
-        return ashar;
+        return super.getAshar();
     }
 
     public String getMaghrib() {
-        return maghrib;
+        return super.getMaghrib();
     }
 
     public String getIsya() {
-        return isya;
+        return super.getIsya();
     }
 }

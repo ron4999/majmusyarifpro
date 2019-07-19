@@ -69,6 +69,28 @@ public class DatabaseContract {
         public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_ASMA + "(" + NO + "," + LATIN + "," + ARAB + "," + INDONESIA + "," + INGGRIS + ") VALUES (?,?,?,?,?)";
     }
 
+    public static class TableJadwalSholat implements BaseColumns {
+        public static final String TABLE_SHOLAT = "table_jadwalsholat";
+
+        public static final String TANGGAL = "tanggal";
+        public static final String SUBUH = "subuh";
+        public static final String DUHUR = "duhur";
+        public static final String ASHAR = "ashar";
+        public static final String MAGHRIB = "maghrib";
+        public static final String ISYA = "isya";
+
+
+        static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHOLAT + "("
+                + TANGGAL + " TEXT,"
+                + SUBUH + " TEXT,"
+                + DUHUR + " TEXT,"
+                + ASHAR + " TEXT,"
+                + MAGHRIB + " TEXT,"
+                + ISYA + " TEXT)";
+
+        public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_SHOLAT + "(" + TANGGAL + "," + SUBUH + "," + DUHUR +","+ASHAR+","+MAGHRIB+","+ISYA+") VALUES (?,?,?,?,?,?)";
+    }
+
 
 
     public static final class TableNote implements BaseColumns {
