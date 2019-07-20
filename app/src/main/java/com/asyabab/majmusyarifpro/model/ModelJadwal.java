@@ -10,10 +10,9 @@ public class ModelJadwal {
     @SerializedName("date_for")
     public String tanggal;
     @SerializedName("fajr")
-    public String fajar;
-
-    @SerializedName("shurooq")
     public String subuh;
+    @SerializedName("shurooq")
+    public String terbit;
     @SerializedName("dhuhr")
     public String zuhur;
     @SerializedName("asr")
@@ -22,9 +21,11 @@ public class ModelJadwal {
     public String maghrib;
     @SerializedName("isha")
     public String isya;
+    public String imsak;
 
     public ModelJadwal(String mtanggal, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
         this.tanggal = mtanggal;
+
         this.subuh = msubuh;
         this.zuhur = mzuhur;
         this.ashar = mashar;
@@ -32,13 +33,22 @@ public class ModelJadwal {
         this.isya = misya;
     }
 
+    public ModelJadwal(String mtanggal, String imsak, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+        this.tanggal = mtanggal;
+        this.imsak=imsak;
+        this.subuh = msubuh;
+        this.zuhur = mzuhur;
+        this.ashar = mashar;
+        this.maghrib = mmaghrib;
+        this.isya = misya;
+    }
 
     public String getTanggal() {
         return tanggal;
     }
 
     public String getFajar() {
-        return fajar;
+        return terbit;
     }
 
     public String getSubuh() {
@@ -59,5 +69,9 @@ public class ModelJadwal {
 
     public String getIsya() {
         return isya;
+    }
+
+    public String getImsak(){
+        return  imsak;
     }
 }

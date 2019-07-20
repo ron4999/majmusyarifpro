@@ -71,7 +71,6 @@ public class DatabaseContract {
 
     public static class TableJadwalSholat implements BaseColumns {
         public static final String TABLE_SHOLAT = "table_jadwalsholat";
-
         public static final String TANGGAL = "tanggal";
         public static final String SUBUH = "subuh";
         public static final String DUHUR = "duhur";
@@ -87,6 +86,8 @@ public class DatabaseContract {
                 + ASHAR + " TEXT,"
                 + MAGHRIB + " TEXT,"
                 + ISYA + " TEXT)";
+
+        public static final String DELETE = "DELETE FROM "+TABLE_SHOLAT;
 
         public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_SHOLAT + "(" + TANGGAL + "," + SUBUH + "," + DUHUR +","+ASHAR+","+MAGHRIB+","+ISYA+") VALUES (?,?,?,?,?,?)";
     }

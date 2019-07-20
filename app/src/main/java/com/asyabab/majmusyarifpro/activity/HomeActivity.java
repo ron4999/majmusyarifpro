@@ -74,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     private SQLiteDatabase database;
 
 
-    String zuhur, ashar, magrib, isya, subuh, tanggalmasehi, tanggalhijriyah, subuhbesok;
+    String zuhur, ashar, magrib, isya, subuh, tanggalmasehi, tanggalhijriyah, subuhbesok, tanggalSekarang, tanggalBesok;
     List<JadwalTemp> jadwaltemp;
     List<ModelJadwal> jadwalList = new ArrayList<>();
 
@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     TextView textsholawat;
     @BindView(R.id.textkalenderpuasa)
     TextView textkalenderpuasa;
-
+    SQLiteDatabase db;
     @BindView(R.id.menukiblat)
     LinearLayout imgArahKabah;
     @BindView(R.id.menudoa)
@@ -179,10 +179,11 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
         boolean connected = false;
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            SQLiteStatement statement = database.compileStatement(DatabaseContract.TableJadwalSholat.DELETE);
+            statement.execute();
+
             actionLoad();
             new GetContacts().execute();
-
-
             pd = new ProgressDialog(HomeActivity.this);
             pd.setTitle("Loading . . . ");
             pd.setMessage("Waiting . . .");
@@ -350,6 +351,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
                                 lokasi = addresses.get(0).getSubAdminArea().toString();
 
                                 if (lokasi != null) {
+
                                     Log.d("location", "locatin :" + lokasi);
 
                                     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -362,18 +364,28 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
                                             Log.d("respon data ", "" + new Gson().toJson(jadwaltemp));
 
                                             if (jadwaltemp != null) {
+                                                int value=0;
+                                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                                String tanggal=format.format(new Date());
+                                                int hasila=converta(jadwaltemp.get(value).getTanggal()).compareTo(converta(tanggal));
+                                                Log.d("hasila :", "" + hasila);
+
+                                                if (hasila!=0){
+                                                    value++;
+                                                }
+
+                                                zuhur = converttime(jadwaltemp.get(value).getZuhur());
+                                                ashar = converttime(jadwaltemp.get(value).getAshar());
+                                                magrib = converttime(jadwaltemp.get(value).getMaghrib());
+                                                isya = converttime(jadwaltemp.get(value).getIsya());
+                                                subuh = converttime(jadwaltemp.get(value).getSubuh());
+                                                subuhbesok = converttime(jadwaltemp.get(value+1).getSubuh());
 
                                                 //insert to database
                                                 for (int i=0; i<7; i++){
-                                                    jadwalList.add(new ModelJadwal(jadwaltemp.get(i).getTanggal(), jadwaltemp.get(i).getSubuh(), jadwaltemp.get(i).getZuhur(), jadwaltemp.get(i).getAshar(), jadwaltemp.get(i).getMaghrib(), jadwaltemp.get(i).getIsya()));
+                                                    jadwalList.add(new ModelJadwal(jadwaltemp.get(i).getTanggal(), converttime(jadwaltemp.get(i).getSubuh()), converttime(jadwaltemp.get(i).getZuhur()), converttime(jadwaltemp.get(i).getAshar()), converttime(jadwaltemp.get(i).getMaghrib()), converttime(jadwaltemp.get(i).getIsya())));
                                                 }
 
-                                                zuhur = jadwaltemp.get(0).getZuhur();
-                                                ashar = jadwaltemp.get(0).getAshar();
-                                                magrib = jadwaltemp.get(0).getMaghrib();
-                                                isya = jadwaltemp.get(0).getIsya();
-                                                subuh = jadwalList.get(0).getFajar();
-                                                subuhbesok = jadwaltemp.get(1).getFajar();
                                                 SQLiteStatement statement = database.compileStatement(DatabaseContract.TableJadwalSholat.QUERY_STATEMENT);
                                                 List<ModelJadwal> jadwallist = jadwalList;
 
@@ -388,13 +400,12 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
                                                     statement.execute();
                                                     statement.clearBindings();
                                                 }
-
                                                 //konvert tanggal besok dan waktu sholat besok (baru subuh)
-                                                String tanggalSekarang = jadwaltemp.get(0).getTanggal();
-                                                String tanggalBesok = jadwaltemp.get(1).getTanggal();
+                                                tanggalSekarang = jadwaltemp.get(value).getTanggal();
+                                                tanggalBesok = jadwaltemp.get(value+1).getTanggal();
 
                                                 Log.d("respon :", "" + zuhur);
-                                                tvJamsholat.setText(subuh);
+
                                                 String waktusubuh=tanggalSekarang+" "+subuh;
                                                 String waktuduhur=tanggalSekarang+" "+zuhur;
                                                 String waktuashar=tanggalSekarang+" "+ashar;
@@ -403,42 +414,59 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
                                                 String waktusubuhbesok=tanggalBesok+" "+subuhbesok;
                                                 Log.d("subuhbesok :", "" + waktusubuhbesok);
 
-                                                int hasil=convert(waktuduhur).compareTo(new Date());
-                                                Log.d("hasil :", "" + hasil);
-
+                                                int hasil=convert(waktusubuh).compareTo(new Date());
+                                                Log.d("Hasil", "hasilsubuh" + hasil);
                                                 if (hasil>0){
                                                     tvWaktusholat.setText("Subuh");
                                                     statusTv(convert(waktusubuh));
+                                                    tvJamsholat.setText(subuh);
                                                 }else{
+                                                    hasil=convert(waktuduhur).compareTo(new Date());
+                                                    Log.d("Hasil", "hassiilduhur" + hasil);
                                                     if (hasil>0){
-                                                    tvWaktusholat.setText("Dhuhur");
-                                                    statusTv(convert(waktuduhur));
-                                                }else{
-                                                    hasil=convert(waktuashar).compareTo(new Date());
-                                                    if (hasil>0){
-                                                        tvWaktusholat.setText("Ashar");
-                                                        statusTv(convert(waktuashar));
+                                                        tvWaktusholat.setText("Dhuhur");
+                                                        statusTv(convert(waktuduhur));
+                                                        tvJamsholat.setText(zuhur);
                                                     }else{
-                                                        tvWaktusholat.setText("Maghrib");
-                                                        hasil=convert(waktumaghrib).compareTo(new Date());
+                                                        hasil=convert(waktuashar).compareTo(new Date());
+                                                        Log.d("Hasil", "hasilashar" + hasil);
+
                                                         if (hasil>0){
-                                                            statusTv(convert(waktumaghrib));
-                                                        }else {
-                                                            if (hasil > 0) {
-                                                                tvWaktusholat.setText("Isya");
-                                                                statusTv(convert(waktuisya));
-                                                            } else {
-                                                                hasil = convert(waktusubuhbesok).compareTo(new Date());
+
+                                                            tvWaktusholat.setText("Ashar");
+                                                            statusTv(convert(waktuashar));
+                                                            tvJamsholat.setText(ashar);
+                                                        }else{
+                                                            hasil=convert(waktumaghrib).compareTo(new Date());
+                                                            Log.d("Hasil", "hasilmaghrib" + hasil);
+                                                            if (hasil>0){
+                                                                tvWaktusholat.setText("Maghrib");
+                                                                statusTv(convert(waktumaghrib));
+                                                                tvJamsholat.setText(magrib);
+                                                            }else {
+                                                                hasil = convert(waktuisya).compareTo(new Date());                                                Log.d("Hasil", "hasilsubuh" + hasil);
+                                                                Log.d("Hasil", "hasilisya" + hasil);
                                                                 if (hasil > 0) {
-                                                                    tvWaktusholat.setText("Subuh");
-                                                                    statusTv(convert(waktusubuhbesok));
+                                                                    tvWaktusholat.setText("Isya");
+                                                                    statusTv(convert(waktuisya));
+                                                                    tvJamsholat.setText(isya);
+                                                                } else {
+                                                                    hasil = convert(waktusubuhbesok).compareTo(new Date());
+                                                                    Log.d("Hasil", "hasilsubuh" + hasil);
+                                                                    if (hasil > 0) {
+                                                                        tvWaktusholat.setText("Subuh");
+                                                                        statusTv(convert(waktusubuhbesok));
+                                                                        tvJamsholat.setText(subuhbesok);
                                                                     }
+
                                                                 }
                                                             }
+
 
                                                         }
                                                     }
                                                 }
+                                                Log.d("Hasil", "hasilsubuh" + hasil);
 
                                                 Log.d("Test", "lokasi" + lokasi);
                                                 tvLokasi.setText(lokasi);
@@ -477,6 +505,16 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
 
         }
     }
+    public Date converta(String tanggal){
+        SimpleDateFormat stfirst = new SimpleDateFormat("yyyy-MM-dd");
+        Date tanggala= null;
+        try {
+            tanggala = stfirst.parse(tanggal);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return tanggala;
+    }
 
     public Date convert(String waktu){
         SimpleDateFormat stfirst = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -487,7 +525,19 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
             e.printStackTrace();
         }
         return waktusholat;
+    }
 
+    public String converttime(String waktu){
+        SimpleDateFormat st24 = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat st12 = new SimpleDateFormat("hh:mm a");
+
+        String a= null;
+        try {
+            a = st24.format(st12.parse(waktu));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return a;
     }
 
     public void statusTv(Date waktu){

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="30dp"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/textimsak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="Imsak"
+                            android:layout_centerVertical="true"
+                            android:textSize="17sp"/>
+
+                        <TextView
+                            android:id="@+id/tvjamimsak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="00.00"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/switch_notifimsak"
+                            android:textSize="17sp"/>
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/switch_notifimsak"
+                            android:checked="true"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:theme="@style/ThemeOverlay.MySwitchCompat"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"/>
+            <LinearLayout
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/textsubuh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="Subuh"
+                            android:layout_centerVertical="true"
+                            android:textSize="17sp"/>
+
+                        <TextView
+                            android:id="@+id/tvjamsubuh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="00.00"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/switch_notifsubuh"
+                            android:textSize="17sp"/>
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/switch_notifsubuh"
+                            android:checked="true"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:theme="@style/ThemeOverlay.MySwitchCompat"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/textduhur"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Dhuhur"
+                            android:textColor="@color/title"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/tvjamduhur"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/switch_notifduhur"
+                            android:text="00.00"
+                            android:textColor="@color/title"
+                            android:textSize="17sp" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/switch_notifduhur"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:checked="true"
+                            android:theme="@style/ThemeOverlay.MySwitchCompat" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"/>
+
+            <LinearLayout
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/textashar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="Ashar"
+                            android:layout_centerVertical="true"
+                            android:textSize="17sp"/>
+
+                        <TextView
+                            android:id="@+id/tvjamashar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="00.00"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/switch_notifashar"
+                            android:textSize="17sp"/>
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/switch_notifashar"
+                            android:checked="true"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:theme="@style/ThemeOverlay.MySwitchCompat"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"/>
+
+            <LinearLayout
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/textmaghrib"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="Maghrib"
+                            android:layout_centerVertical="true"
+                            android:textSize="17sp"/>
+
+                        <TextView
+                            android:id="@+id/tvjammaghrib"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="00.00"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/switch_notifmaghrib"
+                            android:textSize="17sp"/>
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/switch_notifmaghrib"
+                            android:checked="true"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:theme="@style/ThemeOverlay.MySwitchCompat"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"/>
+            <LinearLayout
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/textisya"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="Isya"
+                            android:layout_centerVertical="true"
+                            android:textSize="17sp"/>
+
+                        <TextView
+                            android:id="@+id/tvjamisya"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/title"
+                            android:text="00.00"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/switch_notifisya"
+                            android:textSize="17sp"/>
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/switch_notifisya"
+                            android:checked="true"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:theme="@style/ThemeOverlay.MySwitchCompat"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

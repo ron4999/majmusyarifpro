@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
  * Created by User on 01/05/2018.
  */
 
+
 public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.JadwalHolder> {
     private ArrayList<Jadwal> jadwalList;
     private OnSurahItemClick click;
@@ -38,13 +39,16 @@ public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.Ja
         facelight= ResourcesCompat.getFont(context, R.font.visbylight);
     }
 
-    ListJadwalAdapter(Context applicationContext, ArrayList<Jadwal> jadwals) {
+    ListJadwalAdapter(Context context, ArrayList<Jadwal> jadwals) {
         this.jadwalList = jadwals;
+        facemedium= ResourcesCompat.getFont(context, R.font.visbycfmedium);
+        facethin= ResourcesCompat.getFont(context, R.font.visbyoblique);
+        facelight= ResourcesCompat.getFont(context, R.font.visbylight);
     }
 
     @Override
     public JadwalHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_jadwal_sholat, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_listjadwalsholat, parent, false);
         return new JadwalHolder(view);
     }
 
@@ -68,6 +72,9 @@ public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.Ja
 
         @BindViews({R.id.tvjamashar, R.id.tvjamduhur, R.id.tvjamsubuh, R.id.tvjamisya, R.id.tvjammaghrib,R.id.tvjamimsak})
         List<TextView> rowJadwal;
+        @BindViews({R.id.textsubuh, R.id.textmaghrib, R.id.textduhur, R.id.textashar, R.id.textisya,R.id.textimsak})
+        List<TextView> rowText;
+
 
         JadwalHolder(View itemView) {
             super(itemView);
@@ -75,12 +82,25 @@ public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.Ja
         }
 
         void setContent(final Jadwal jadwal, OnSurahItemClick click) {
+            rowJadwal.get(0).setTypeface(facemedium);
+            rowJadwal.get(1).setTypeface(facemedium);
+            rowJadwal.get(2).setTypeface(facemedium);
+            rowJadwal.get(3).setTypeface(facemedium);
+            rowJadwal.get(4).setTypeface(facemedium);
+            rowJadwal.get(5).setTypeface(facemedium);
+            rowText.get(0).setTypeface(facemedium);
+            rowText.get(1).setTypeface(facemedium);
+            rowText.get(2).setTypeface(facemedium);
+            rowText.get(3).setTypeface(facemedium);
+            rowText.get(4).setTypeface(facemedium);
+            rowText.get(5).setTypeface(facemedium);
+
             rowJadwal.get(0).setText(jadwal.getAshar());
             rowJadwal.get(1).setText(jadwal.getZuhur());
             rowJadwal.get(2).setText(jadwal.getSubuh());
             rowJadwal.get(3).setText(jadwal.getIsya());
             rowJadwal.get(4).setText(jadwal.getMaghrib());
-            rowJadwal.get(5).setText("AA");
+            rowJadwal.get(5).setText(jadwal.getImsak());
 
         }
 
