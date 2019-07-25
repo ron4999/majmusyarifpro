@@ -19,8 +19,10 @@ public class JadwalTemp{
     public String maghrib;
     @SerializedName("isha")
     public String isya;
+    public String id;
 
-    public JadwalTemp(String mtanggal, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+    public JadwalTemp(String id, String mtanggal, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+        this.id = id;
         this.tanggal = mtanggal;
         this.subuh = msubuh;
         this.zuhur = mzuhur;

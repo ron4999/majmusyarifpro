@@ -3,20 +3,27 @@ package com.asyabab.majmusyarifpro.activity.listjadwal;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asyabab.majmusyarifpro.R;
 import com.asyabab.majmusyarifpro.model.Jadwal;
 import com.asyabab.majmusyarifpro.modelquran.Ayat;
 import com.asyabab.majmusyarifpro.modelquran.Surah;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
@@ -28,8 +35,11 @@ import butterknife.ButterKnife;
 public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.JadwalHolder> {
     private ArrayList<Jadwal> jadwalList;
     private OnSurahItemClick click;
-    private static Typeface facemedium, facethin,facelight;
 
+
+    private static Typeface facemedium, facethin,facelight;
+    @BindView(R.id.tvj_namawaktusholat)
+    TextView namawaktu;
 
     ListJadwalAdapter(Context context, ArrayList<Jadwal> jadwalList, OnSurahItemClick click) {
         this.jadwalList = jadwalList;
@@ -68,9 +78,10 @@ public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.Ja
         return jadwalList.size();
     }
 
+
     class JadwalHolder extends RecyclerView.ViewHolder {
 
-        @BindViews({R.id.tvjamashar, R.id.tvjamduhur, R.id.tvjamsubuh, R.id.tvjamisya, R.id.tvjammaghrib,R.id.tvjamimsak})
+        @BindViews({R.id.tvjamashar, R.id.tvjamduhur, R.id.tvjamsubuh, R.id.tvjamisya, R.id.tvjammaghrib,R.id.tvjamimsak,R.id.tanggal_jadwal})
         List<TextView> rowJadwal;
         @BindViews({R.id.textsubuh, R.id.textmaghrib, R.id.textduhur, R.id.textashar, R.id.textisya,R.id.textimsak})
         List<TextView> rowText;
@@ -88,6 +99,8 @@ public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.Ja
             rowJadwal.get(3).setTypeface(facemedium);
             rowJadwal.get(4).setTypeface(facemedium);
             rowJadwal.get(5).setTypeface(facemedium);
+            rowJadwal.get(6).setTypeface(facemedium);
+
             rowText.get(0).setTypeface(facemedium);
             rowText.get(1).setTypeface(facemedium);
             rowText.get(2).setTypeface(facemedium);
@@ -101,7 +114,23 @@ public class ListJadwalAdapter extends RecyclerView.Adapter<ListJadwalAdapter.Ja
             rowJadwal.get(3).setText(jadwal.getIsya());
             rowJadwal.get(4).setText(jadwal.getMaghrib());
             rowJadwal.get(5).setText(jadwal.getImsak());
+            rowJadwal.get(6).setText(converthari(jadwal.getTanggal()));
 
+
+
+        }
+
+        public String converthari(String waktu){
+            SimpleDateFormat sdfirst = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat stfirst = new SimpleDateFormat("EEEE, dd-MM-yyyy");
+
+            String a= null;
+            try {
+                a = stfirst.format(sdfirst.parse(waktu));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return a;
         }
 
     }

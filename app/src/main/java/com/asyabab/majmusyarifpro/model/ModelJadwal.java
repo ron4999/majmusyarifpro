@@ -22,10 +22,10 @@ public class ModelJadwal {
     @SerializedName("isha")
     public String isya;
     public String imsak;
-
-    public ModelJadwal(String mtanggal, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+    public String id;
+    public ModelJadwal(String id,String mtanggal, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+        this.id = id;
         this.tanggal = mtanggal;
-
         this.subuh = msubuh;
         this.zuhur = mzuhur;
         this.ashar = mashar;
@@ -33,7 +33,8 @@ public class ModelJadwal {
         this.isya = misya;
     }
 
-    public ModelJadwal(String mtanggal, String imsak, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+    public ModelJadwal(String id,String mtanggal, String imsak, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+        this.id = id;
         this.tanggal = mtanggal;
         this.imsak=imsak;
         this.subuh = msubuh;
@@ -41,6 +42,9 @@ public class ModelJadwal {
         this.ashar = mashar;
         this.maghrib = mmaghrib;
         this.isya = misya;
+    }
+    public String getId() {
+        return id;
     }
 
     public String getTanggal() {

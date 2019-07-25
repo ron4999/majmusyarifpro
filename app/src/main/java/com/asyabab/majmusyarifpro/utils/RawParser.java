@@ -1,5 +1,7 @@
 package com.asyabab.majmusyarifpro.utils;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,8 +10,11 @@ import java.util.List;
 import com.asyabab.majmusyarifpro.App;
 import com.asyabab.majmusyarifpro.R;
 import com.asyabab.majmusyarifpro.model.ModelAsmaulHusna;
+import com.asyabab.majmusyarifpro.model.ModelNote;
 import com.asyabab.majmusyarifpro.modelquran.ModelAyat;
 import com.asyabab.majmusyarifpro.modelquran.ModelSurah;
+
+import static com.android.volley.VolleyLog.TAG;
 
 
 public class RawParser {
@@ -60,5 +65,18 @@ public class RawParser {
         }
 
         return asmalist;
+    }
+
+    public static List<ModelNote> getRawNote() throws IOException {
+        BufferedReader reader = App.getRawResources(R.raw.notes);
+        List<ModelNote> noteList = new ArrayList<>();
+        String rawNote;
+        while ((rawNote = reader.readLine()) != null) {
+            String[] rawNotes = rawNote.split("//");
+
+            noteList.add(new ModelNote(rawNotes[0], rawNotes[1], rawNotes[2]));
+        }
+
+        return noteList;
     }
 }

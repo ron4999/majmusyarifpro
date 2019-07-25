@@ -16,7 +16,6 @@ public class DatabaseContract {
 
         public static final String SURAH = "Surah";
         public static final String AYAT = "Ayat";
-        public static String NOTE = "note";
 
         public static final String TERJEMAHAN_INDONESIA = LOAD_TERJEMEMAHAN_INDONESIA;
         public static final String TERJEMAHAN_ENGLISH = LOAD_TERJEMEMAHAN_ENGLISH;
@@ -69,8 +68,25 @@ public class DatabaseContract {
         public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_ASMA + "(" + NO + "," + LATIN + "," + ARAB + "," + INDONESIA + "," + INGGRIS + ") VALUES (?,?,?,?,?)";
     }
 
+    public static class TableNote implements BaseColumns {
+        public static final String TABLE_NOTE = "table_note";
+
+        public static final String ID = "no";
+        public static final String NAMA = "nama";
+        public static final String STATUS = "status";
+
+
+        static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NOTE + "("
+                + ID + " TEXT,"
+                + NAMA + " TEXT,"
+                + STATUS + " TEXT)";
+
+        public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_NOTE + "(" + ID + "," + NAMA + "," + STATUS + ") VALUES (?,?,?)";
+    }
+
     public static class TableJadwalSholat implements BaseColumns {
         public static final String TABLE_SHOLAT = "table_jadwalsholat";
+        public static final String ID = "no";
         public static final String TANGGAL = "tanggal";
         public static final String SUBUH = "subuh";
         public static final String DUHUR = "duhur";
@@ -80,6 +96,7 @@ public class DatabaseContract {
 
 
         static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHOLAT + "("
+                + ID + " TEXT,"
                 + TANGGAL + " TEXT,"
                 + SUBUH + " TEXT,"
                 + DUHUR + " TEXT,"
@@ -89,43 +106,6 @@ public class DatabaseContract {
 
         public static final String DELETE = "DELETE FROM "+TABLE_SHOLAT;
 
-        public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_SHOLAT + "(" + TANGGAL + "," + SUBUH + "," + DUHUR +","+ASHAR+","+MAGHRIB+","+ISYA+") VALUES (?,?,?,?,?,?)";
-    }
-
-
-
-    public static final class TableNote implements BaseColumns {
-        public static final String TABLE_NOTE= "table_note";
-        //Note title
-        public static String TITLE = "title";
-        //Note description
-        public static String DESCRIPTION = "description";
-        //Note date
-        public static String DATE = "date";
-        public static String SHOLATISYA = "isya";
-        public static String SHOLATSUBUH = "subuh";
-        public static String SHOLATZUHUR = "zuhur";
-        public static String SHOLATASHAR = "ashar";
-        public static String SHOLATMAGRIB = "magrib";
-        public static String QURAN = "quran";
-        public static String QULTUM = "qultum";
-
-        static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NOTE + "("
-                + TITLE + "TEXT,"
-                + DESCRIPTION + "TEXT,"
-                + DATE + "TEXT,"
-                + SHOLATISYA + "TEXT,"
-                + SHOLATSUBUH + "TEXT,"
-                + SHOLATZUHUR + "TEXT,"
-                + SHOLATASHAR + "TEXT,"
-                + SHOLATMAGRIB + "TEXT,"
-                + QURAN + "TEXT,"
-                + QULTUM + "TEXT)";
-        public static final String QUERY_STATEMENT = "INSERT INTO " +TABLE_NOTE + "(" + TITLE +"," +DESCRIPTION  +
-                "," + DATE+ "," + SHOLATSUBUH+","+ SHOLATZUHUR +"," +SHOLATASHAR+","
-                + SHOLATMAGRIB+"," +SHOLATISYA+","+QURAN+","+QULTUM+ ") VALUES (?,?,?,?,?,?,?,?,?,?)";
-
-
-
+        public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_SHOLAT + "(" + ID + ","+ TANGGAL +"," + SUBUH + "," + DUHUR +","+ASHAR+","+MAGHRIB+","+ISYA+") VALUES (?,?,?,?,?,?,?)";
     }
 }

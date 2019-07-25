@@ -1,6 +1,7 @@
 package com.asyabab.majmusyarifpro;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.res.Resources;
 
 import com.asyabab.majmusyarifpro.utils.PreferenceApp;
@@ -13,12 +14,14 @@ import com.asyabab.majmusyarifpro.database.DatabaseHelper;
 
 
 public class App extends Application {
+    private static Context sContext;
 
     private static Resources resources;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sContext = getApplicationContext();
 
         resources = getResources();
         DatabaseHelper.initDatabase(this);
@@ -29,5 +32,10 @@ public class App extends Application {
         InputStream streamReader = resources.openRawResource(res);
         return new BufferedReader(new InputStreamReader(streamReader));
     }
+
+    public static Context getAppContext() {
+        return sContext;
+    }
+
 
 }

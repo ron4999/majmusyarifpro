@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asyabab.majmusyarifpro.R;
+import com.asyabab.majmusyarifpro.activity.kalender.Kalender;
 import com.asyabab.majmusyarifpro.activity.listasma.AsmaulHusna;
 import com.asyabab.majmusyarifpro.activity.listjadwal.JadwalSholatActivity;
 import com.asyabab.majmusyarifpro.activity.listsurah.QuranActivity;
@@ -77,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     String zuhur, ashar, magrib, isya, subuh, tanggalmasehi, tanggalhijriyah, subuhbesok, tanggalSekarang, tanggalBesok;
     List<JadwalTemp> jadwaltemp;
     List<ModelJadwal> jadwalList = new ArrayList<>();
-
+    SwipeRefreshLayout swipeRefreshLayout;
     String date=new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).format(new Date());
     private static Typeface facebold, facemedium, facethin;
 
@@ -125,8 +127,8 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     LinearLayout imgCatatanRamadhan;
     NestedScrollView idHomeActivity;
     private Handler handler = new Handler();
-
-    String url="http://api.aladhan.com/v1/gToH?date=24-06-2019";
+    String dateFormat=new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault()).format(new Date());
+    String url="http://api.aladhan.com/v1/gToH?date="+dateFormat;
     private String TAG = HomeActivity.class.getSimpleName();
     private  TimerClass timerClass;
     final String[] hijriah = new String[1];
@@ -140,7 +142,8 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        swipeRefreshLayout=(SwipeRefreshLayout) findViewById(R.id.swipeLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.subtitle, R.color.colorPrimary);
         DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
         facebold= ResourcesCompat.getFont(getApplicationContext(), R.font.visbybold);
@@ -304,13 +307,19 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     };
 
     private void refresh() {
-//        swipeId.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                swipeId.setRefreshing(true);
-//                actionLoad();
-//            }
-//        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        actionLoad();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 5000);
+            }
+        });
 
     }
 
@@ -383,7 +392,7 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
 
                                                 //insert to database
                                                 for (int i=0; i<7; i++){
-                                                    jadwalList.add(new ModelJadwal(jadwaltemp.get(i).getTanggal(), converttime(jadwaltemp.get(i).getSubuh()), converttime(jadwaltemp.get(i).getZuhur()), converttime(jadwaltemp.get(i).getAshar()), converttime(jadwaltemp.get(i).getMaghrib()), converttime(jadwaltemp.get(i).getIsya())));
+                                                    jadwalList.add(new ModelJadwal(String.valueOf(i),jadwaltemp.get(i).getTanggal(), converttime(jadwaltemp.get(i).getSubuh()), converttime(jadwaltemp.get(i).getZuhur()), converttime(jadwaltemp.get(i).getAshar()), converttime(jadwaltemp.get(i).getMaghrib()), converttime(jadwaltemp.get(i).getIsya())));
                                                 }
 
                                                 SQLiteStatement statement = database.compileStatement(DatabaseContract.TableJadwalSholat.QUERY_STATEMENT);
@@ -391,12 +400,13 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
 
                                                 //masukkan ke database
                                                 for (ModelJadwal jadwal : jadwallist) {
-                                                    statement.bindString(1, jadwal.getTanggal());
-                                                    statement.bindString(2, jadwal.getSubuh());
-                                                    statement.bindString(3, jadwal.getZuhur());
-                                                    statement.bindString(4, jadwal.getAshar());
-                                                    statement.bindString(5, jadwal.getMaghrib());
-                                                    statement.bindString(6, jadwal.getIsya());
+                                                    statement.bindString(1, jadwal.getId());
+                                                    statement.bindString(2, jadwal.getTanggal());
+                                                    statement.bindString(3, jadwal.getSubuh());
+                                                    statement.bindString(4, jadwal.getZuhur());
+                                                    statement.bindString(5, jadwal.getAshar());
+                                                    statement.bindString(6, jadwal.getMaghrib());
+                                                    statement.bindString(7, jadwal.getIsya());
                                                     statement.execute();
                                                     statement.clearBindings();
                                                 }
@@ -540,6 +550,8 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
         return a;
     }
 
+
+
     public void statusTv(Date waktu){
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         String strdate1 = format.format(new Date());
@@ -602,7 +614,11 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
 
     @OnClick(R.id.menukiblat)
     public void onImgArahKabahClicked() {
-        startActivity(new Intent(HomeActivity.this, ArahKiblatActivity.class));
+        Bundle bundle=new Bundle();
+        bundle.putString("datalokasi", lokasi);
+        Intent intent=new Intent(HomeActivity.this, ArahKiblatActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @OnClick(R.id.menujadwalsholat)
@@ -614,11 +630,20 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     public void onMnasmaulhusna() {
         startActivity(new Intent(HomeActivity.this, AsmaulHusna.class));
     }
+    @OnClick(R.id.menukalenderpuasa)
+    public void onKalenderPuasa() {
+        startActivity(new Intent(HomeActivity.this, Kalender.class));
+    }
 
 
     @OnClick(R.id.menusurah)
     public void onImgAlQuranClicked() {
         startActivity(new Intent(this, QuranActivity.class));
+    }
+
+    @OnClick(R.id.menulainnya)
+    public void onLainnya() {
+        startActivity(new Intent(this, Setting.class));
     }
 
 

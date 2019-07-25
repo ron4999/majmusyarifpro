@@ -1,37 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f7f7f7"
-    android:layout_margin="8dp"
-    >
+    android:layout_height="match_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f7f7f7">
+        android:layout_height="match_parent">
 
 
         <TextView
-            android:id="@+id/tvHeading"
+            android:id="@+id/tvLokasiKompas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Location"
+            android:textColor="#ff000000"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textKiblat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Kiblat"
+            android:layout_below="@id/tvLokasiKompas"
+            android:textColor="#ff000000"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tvDerajat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:layout_marginTop="20dp"
-            android:text="Heading: 0.0"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:layout_below="@id/textKiblat"
             android:textColor="#ff000000"
-            android:textSize="23dp" />
+            android:textSize="20dp" />
 
         <ImageView
             android:id="@+id/imageViewCompass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvHeading"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/tvDerajat"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/compasss" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageViewCompass"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_map_black_24dp"/>
 
     </RelativeLayout>
 
 
-</android.support.v7.widget.CardView>
+</LinearLayout>

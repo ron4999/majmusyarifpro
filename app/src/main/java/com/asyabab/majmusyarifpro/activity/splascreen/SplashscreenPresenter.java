@@ -3,17 +3,21 @@ package com.asyabab.majmusyarifpro.activity.splascreen;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.asyabab.majmusyarifpro.base.BasePresenter;
 import com.asyabab.majmusyarifpro.database.DatabaseContract;
 import com.asyabab.majmusyarifpro.database.DatabaseHelper;
 import com.asyabab.majmusyarifpro.model.ModelAsmaulHusna;
+import com.asyabab.majmusyarifpro.model.ModelNote;
 import com.asyabab.majmusyarifpro.modelquran.ModelAyat;
 import com.asyabab.majmusyarifpro.modelquran.ModelSurah;
 import com.asyabab.majmusyarifpro.utils.RawParser;
 
 import java.io.IOException;
 import java.util.List;
+
+import static com.android.volley.VolleyLog.TAG;
 
 /**
  * Created by User on 01/05/2018.
@@ -75,6 +79,20 @@ public class SplashscreenPresenter extends BasePresenter<SplashscreenView> {
                     statement.bindString(3, ayat.getArab());
                     statement.bindString(4, ayat.getTerjemahanIndonesia());
                     statement.bindString(5, ayat.getTerjemahanEnglish());
+                    statement.execute();
+                    statement.clearBindings();
+                    progress++;
+                    publishProgress(progress);
+                }
+                Thread.sleep(2000);
+
+
+                statement = database.compileStatement(DatabaseContract.TableNote.QUERY_STATEMENT);
+                List<ModelNote> noteList = RawParser.getRawNote();
+                for (ModelNote  note: noteList) {
+                    statement.bindString(1, note.getId());
+                    statement.bindString(2, note.getNama());
+                    statement.bindString(3, note.getStatus());
                     statement.execute();
                     statement.clearBindings();
                     progress++;

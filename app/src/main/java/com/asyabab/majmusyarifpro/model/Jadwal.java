@@ -3,11 +3,15 @@ package com.asyabab.majmusyarifpro.model;
 
 public class Jadwal extends  ModelJadwal{
 
-    public Jadwal(String mtanggal, String imsak, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
-        super(mtanggal, imsak, msubuh, mzuhur, mashar, mmaghrib, misya);
+    public Jadwal(String id, String mtanggal, String imsak, String msubuh, String mzuhur, String mashar, String mmaghrib, String misya) {
+        super(id, mtanggal, imsak, msubuh, mzuhur, mashar, mmaghrib, misya);
     }
     public String getImsak() {
         return super.getImsak();
+    }
+
+    public String getId() {
+        return super.getId();
     }
 
     public String getTanggal() {

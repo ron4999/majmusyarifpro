@@ -10,6 +10,28 @@
         android:layout_height="80dp"
         android:background="@color/colorPrimary">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="10pt"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/dialog_namasholat"
+            android:text="Waktu Sholat"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:textSize="8pt"
+            android:id="@+id/dialog_jamsholat"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="10dp"
+            android:text="Jam Sholat"/>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -25,6 +47,8 @@
             android:padding="5dp"
             android:gravity="center">
             <TextView
+                android:id="@+id/textjenisalarm"
+                android:textSize="12dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Jenis Alarm"/>
@@ -36,48 +60,69 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/buttondiam"
-                android:layout_marginRight="30dp"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/buttondesign"
-                style="@android:style/Widget.Material.Button.Borderless"
-                android:text="Diam"
-                android:textColor="@color/colorPrimary"
-                tools:ignore="NewApi" />
-            <Button
-                android:id="@+id/buttondering"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/buttondesign"
-                android:text="Dering"
-                style="@android:style/Widget.Material.Button.Borderless"
-                android:textColor="@color/colorPrimary"
-                tools:ignore="NewApi" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/buttonadzan"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:background="@drawable/buttondesign"
-            android:text="Adzan"
-            style="@android:style/Widget.Material.Button.Borderless"
-            android:textColor="@color/colorPrimary"
-            tools:ignore="NewApi" />
-    </LinearLayout>
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+                <!--<RadioGroup-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="200dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:id="@+id/radiojenis">-->
+
+
+                <RadioButton
+                    android:id="@+id/buttondiam"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/buttoncheckbacground"
+                    android:textColor="@drawable/buttontextbacground"
+                    android:text="Diam"
+                    android:textSize="12dp"
+                    tools:ignore="NewApi" />
+
+                <RadioButton
+                    android:id="@+id/buttondering"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/buttoncheckbacground"
+                    android:text="Dering"
+                    android:textColor="@drawable/buttontextbacground"
+                    android:textSize="12dp"
+                    tools:ignore="NewApi" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/buttonadzan"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttoncheckbacground"
+                    android:text="Adzan"
+                    android:textColor="@drawable/buttontextbacground"
+                    android:textSize="12dp"
+                    tools:ignore="NewApi" />
+                <!--</RadioGroup>-->
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <LinearLayout
@@ -89,6 +134,8 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:textSize="12dp"
+                android:id="@+id/textwaktusalarm"
                 android:text="Waktu Peringatan"/>
         </LinearLayout>
     </LinearLayout>
@@ -103,28 +150,26 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:orientation="horizontal">
-            <Button
+            <RadioButton
                 android:id="@+id/buttontepat"
                 android:layout_marginRight="30dp"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/buttondesign"
                 android:text="Tepat"
-                style="@android:style/Widget.Material.Button.Borderless"
-
-                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                android:background="@drawable/buttoncheckbacground"
+                android:textColor="@drawable/buttontextbacground"
                 tools:ignore="NewApi" />
-            <Button
+            <RadioButton
                 android:id="@+id/button5menit"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/buttondesign"
-                style="@android:style/Widget.Material.Button.Borderless"
-
+                android:textSize="12dp"
+                android:background="@drawable/buttoncheckbacground"
+                android:textColor="@drawable/buttontextbacground"
                 android:text="- 5 Menit"
-                android:textColor="@color/colorPrimary"
                 tools:ignore="NewApi" />
         </LinearLayout>
         <LinearLayout
@@ -132,27 +177,27 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:orientation="horizontal">
-            <Button
+            <RadioButton
                 android:id="@+id/button10menit"
                 android:layout_marginRight="30dp"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/buttondesign"
+                android:textSize="12dp"
+                android:background="@drawable/buttoncheckbacground"
+                android:textColor="@drawable/buttontextbacground"
                 android:text="-10 Menit"
-                style="@android:style/Widget.Material.Button.Borderless"
-                android:textColor="@color/colorPrimary"
                 tools:ignore="NewApi" />
 
-            <Button
+            <RadioButton
                 android:id="@+id/button15menit"
-                style="@android:style/Widget.Material.Button.Borderless"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/buttondesign"
+                android:textSize="12dp"
                 android:text="- 15 Menit"
-                android:textColor="@color/colorPrimary"
+                android:background="@drawable/buttoncheckbacground"
+                android:textColor="@drawable/buttontextbacground"
                 tools:ignore="NewApi" />
         </LinearLayout>
     </LinearLayout>

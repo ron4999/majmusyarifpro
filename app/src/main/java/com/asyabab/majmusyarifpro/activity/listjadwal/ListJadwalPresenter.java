@@ -8,6 +8,7 @@ import com.asyabab.majmusyarifpro.base.BasePresenter;
 import com.asyabab.majmusyarifpro.database.DatabaseContract;
 import com.asyabab.majmusyarifpro.database.DatabaseHelper;
 import com.asyabab.majmusyarifpro.model.Jadwal;
+import com.asyabab.majmusyarifpro.model.Note;
 import com.asyabab.majmusyarifpro.modelquran.Surah;
 
 import java.text.ParseException;
@@ -15,9 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by User on 01/05/2018.
- */
 
 public class ListJadwalPresenter extends BasePresenter<ListJadwalView> {
     ListJadwalPresenter(ListJadwalView view) {
@@ -26,12 +24,13 @@ public class ListJadwalPresenter extends BasePresenter<ListJadwalView> {
 
     void loadTanggal(String loadtanggal) {
         SQLiteDatabase database = DatabaseHelper.getDatabase();
-        Cursor cursor = database.query(DatabaseContract.TableJadwalSholat.TABLE_SHOLAT, null, DatabaseContract.TableJadwalSholat.TANGGAL + " LIKE '" + loadtanggal + "'", null, null, null, null);
+        Cursor cursor = database.query(DatabaseContract.TableJadwalSholat.TABLE_SHOLAT, null, DatabaseContract.TableJadwalSholat.ID + " LIKE '" + loadtanggal + "'", null, null, null, null);
 
         ArrayList<Jadwal> data = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 String tanggal = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableJadwalSholat.TANGGAL));
+                String id = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableJadwalSholat.ID));
                 String subuh = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableJadwalSholat.SUBUH));
                 String duhur = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableJadwalSholat.DUHUR));
                 String ashar = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableJadwalSholat.ASHAR));
@@ -59,7 +58,7 @@ public class ListJadwalPresenter extends BasePresenter<ListJadwalView> {
                     Log.d("hoursc",diffHours + " hours, ");
                     Log.d("minutesc",diffMinutes + " minutes, ");
 
-                data.add(new Jadwal(tanggal, imsak, subuh , duhur , ashar, maghrib,isya));
+                data.add(new Jadwal(id, tanggal, imsak, subuh , duhur , ashar, maghrib,isya));
             } while (cursor.moveToNext());
         }
         mView.onLoad(data);
