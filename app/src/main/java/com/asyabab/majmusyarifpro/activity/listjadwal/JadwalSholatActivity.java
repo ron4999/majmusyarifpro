@@ -1,16 +1,16 @@
 
 package com.asyabab.majmusyarifpro.activity.listjadwal;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,7 +38,8 @@ import java.util.ArrayList;
 
 public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  implements ListJadwalView, View.OnClickListener {
     AppSettings settings;
-
+    String nilai;
+    String id;
     private MediaPlayer mMediaPlayer;
     Typeface facebold, facemedium, facethin;
     TextView textsubuh;
@@ -92,7 +92,7 @@ public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  imp
         mPresenter.loadTanggal(String.valueOf(value));
         loadNote();
 
-
+        check();
         click_switch(switchAshar);
         click_switch(switchIsya);
         click_switch(switchMaghrib);
@@ -102,73 +102,72 @@ public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  imp
 
     }
 
-//    private boolean getPrayerAlarmStatus(int prayerIndex) {
-//        String key = getPrayerKeyFromIndex(prayerIndex);
-//
-//        if (key != null) {
-//            return settings.getBoolean(key);
-//        }
-//        return false;
-//    }
-//    private String getPrayerKeyFromIndex(int prayerIndex) {
-//        String key = null;
-//        switch (prayerIndex) {
-//            case 0:
-//                key = settings.getKeyFor(AppSettings.Key.IS_FAJR_ALARM_SET, mIndex);
-//                break;
-//            case 1:
-//                key = settings.getKeyFor(AppSettings.Key.IS_DHUHR_ALARM_SET, mIndex);
-//                break;
-//            case 2:
-//                key = settings.getKeyFor(AppSettings.Key.IS_ASR_ALARM_SET, mIndex);
-//                break;
-//            case 3:
-//                key = settings.getKeyFor(AppSettings.Key.IS_MAGHRIB_ALARM_SET, mIndex);
-//                break;
-//            case 4:
-//                key = settings.getKeyFor(AppSettings.Key.IS_ISHA_ALARM_SET, mIndex);
-//                break;
-//        }
-//        return key;
-//    }
-
     private void click_switch(SwitchCompat switchCompat){
+
         switchCompat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (switchCompat.isChecked()){
-                    showCustomDialog();
+                if (switchImsak.isClickable()){
+                    id="sImsak";
+
+                }else if (switchZuhur.isClickable()){
+                    id="sZuhur";
+                }else if (switchAshar.isClickable()){
+                    id="sAshar";
+                }else if (switchMaghrib.isClickable()){
+                    id="sMaghrib";
+                }else if (switchSubuh.isClickable()){
+                    id="sSubuh";
+                }else if (switchIsya.isClickable()){
+                    id="sIsya";
                 }
+                showCustomDialog();
             }
         });
     }
 
+
     private void click_menu(RadioButton radioButton, RadioButton false1, RadioButton false2){
+
         radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (radioButton.isChecked()){
                     false1.setChecked(false);
                     false2.setChecked(false);
-//                    save_data();
                     if(bnotif.isChecked()){
                         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
                         r.play();
                         Toast.makeText(JadwalSholatActivity.this, "Notifikasi Dering", Toast.LENGTH_SHORT).show();
+                        nilai="dering";
                     }
-                    if (badzan.isChecked()){
+                    else if (badzan.isChecked()){
                         mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.adzancut);
                         mMediaPlayer.start();
                         Toast.makeText(JadwalSholatActivity.this, "Notifikasi Adzan", Toast.LENGTH_SHORT).show();
+                        nilai="adzan";
+                    }else{
 
+                        nilai="0";
                     }
+                    save1(id, nilai);
+
                 }
 
             }
         });
     }
     private void click_waktu(RadioButton radioButton, RadioButton false1, RadioButton false2,RadioButton false3 ){
+        if (data.get(0).getStatus().equals("tepat")){
+            radioButton.setChecked(true);
+        }else if(data.get(0).getStatus().equals("lima")){
+            false1.setChecked(true);
+        }else if(data.get(0).getStatus().equals("sepuluh")){
+            false2.setChecked(true);
+        }else if(data.get(0).getStatus().equals("limabelas")){
+            false3.setChecked(true);
+        }
         radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,27 +176,37 @@ public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  imp
                     false2.setChecked(false);
                     false3.setChecked(false);
 
-
+                    if (btepat.isChecked()){
+                        nilai="tepat";
+                    }else if(blimamenit.isChecked()){
+                        nilai="lima";
+                    }else if(bsepuluhmenit.isChecked()){
+                        nilai="sepuluh";
+                    }else if(blimabelasmenit.isChecked()){
+                        nilai="limabelas";
+                    }
+                    save2(id, nilai);
                 }
             }
         });
     }
+
+
     private void loadNote() {
         SQLiteDatabase database = DatabaseHelper.getDatabase();
         Cursor cursor = database.query(DatabaseContract.TableNote.TABLE_NOTE, null, null, null, null, null, null);
 
         data = new ArrayList<>();
         if (cursor.moveToFirst()) {
-
-
             do {
                 String id = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableNote.ID));
                 String nama = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableNote.NAMA));
                 String status = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableNote.STATUS));
-
+                String status2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.TableNote.STATUS2));
                 data.add(new Note(id , nama , status));
             } while (cursor.moveToNext());
         }
+
         Log.d("test", "Coba"+data.get(1).getStatus());
 
         if (data.get(0).getStatus().equals("0")){
@@ -230,50 +239,58 @@ public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  imp
         }else{
             switchIsya.setChecked(true);
         }
+
         cursor.close();
         database.close();
     }
 
-    private void save_data() {
-        String id="sImsak";
-        String nilai="Sholat";
-        SQLiteDatabase database = DatabaseHelper.getDatabase();
-        ContentValues values=new ContentValues();
-        values.put(DatabaseContract.TableNote.STATUS,nilai);
-        String arg="nama="+id;
-        database.update(DatabaseContract.TableNote.TABLE_NOTE,values,arg,null);
 
-        if (data.get(0).getStatus().equals("0")){
-            switchImsak.setChecked(false);
-        }else{
-            switchImsak.setChecked(true);
-        }
-        if (data.get(1).getStatus().equals("0")){
-            switchSubuh.setChecked(false);
-        }else{
-            switchSubuh.setChecked(true);
-        }
-        if (data.get(3).getStatus().equals("0")){
-            switchAshar.setChecked(false);
-        }else{
-            switchAshar.setChecked(true);
-        }
-        if (data.get(2).getStatus().equals("0")){
-            switchZuhur.setChecked(false);
-        }else{
-            switchZuhur.setChecked(true);
-        }
-        if (data.get(4).getStatus().equals("0")){
-            switchMaghrib.setChecked(false);
-        }else{
-            switchMaghrib.setChecked(true);
-        }
-        if (data.get(5).getStatus().equals("0")){
-            switchIsya.setChecked(false);
-        }else{
-            switchIsya.setChecked(true);
-        }
+    private void save1(String id, String nilai){
+        SQLiteDatabase database = DatabaseHelper.getDatabase();
+        SQLiteStatement statement = database.compileStatement(DatabaseContract.TableNote.QUERY_UPDATE);
+        statement.bindString(1, nilai);
+        statement.bindString(2, id);
+        statement.execute();
+        statement.clearBindings();
         database.close();
+    }
+    private void save2(String id, String nilai){
+        SQLiteDatabase database = DatabaseHelper.getDatabase();
+        SQLiteStatement statement = database.compileStatement(DatabaseContract.TableNote.QUERY_UPDATE2);
+        statement.bindString(1, nilai);
+        statement.bindString(2, id);
+        statement.execute();
+        statement.clearBindings();
+        database.close();
+
+    }
+
+    private void check() {
+        //        if (data.get(1).getStatus().equals("0")){
+//            switchSubuh.setChecked(false);
+//        }else{
+//            switchSubuh.setChecked(true);
+//        }
+//        if (data.get(3).getStatus().equals("0")){
+//            switchAshar.setChecked(false);
+//        }else{
+//            switchAshar.setChecked(true);
+//        }
+//        if (data.get(2).getStatus().equals("0")){
+//            switchZuhur.setChecked(false);
+//        }else{
+//            switchZuhur.setChecked(true);
+//        }
+//        if (data.get(4).getStatus().equals("0")){
+//            switchMaghrib.setChecked(false);
+//        }else{
+//            switchMaghrib.setChecked(true);
+//        }
+//        if (data.get(5).getStatus().equals("0")){
+//            switchIsya.setChecked(false);
+//        }else{
+//            switchIsya.setChecked(true);
+//        }
     }
 
     private void showCustomDialog () {
@@ -295,8 +312,6 @@ public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  imp
         tvDialogJamSholat=(TextView) dialogView.findViewById(R.id.dialog_jamsholat);
         tvtextjenis=(TextView) dialogView.findViewById(R.id.textjenisalarm);
         tvtextperingatan=(TextView) dialogView.findViewById(R.id.textwaktusalarm);
-
-
 //        int selected=radioperingatan.getCheckedRadioButtonId();
 //        radioButton= (RadioButton) findViewById(selected);
         badzan=(RadioButton) dialogView.findViewById(R.id.buttonadzan);
@@ -306,8 +321,6 @@ public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  imp
         btepat=(RadioButton) dialogView.findViewById(R.id.buttontepat);
         btidakada=(RadioButton) dialogView.findViewById(R.id.buttondiam);
         blimamenit=(RadioButton) dialogView.findViewById(R.id.button5menit);
-
-
 
         tvDialogNamaSholat.setTypeface(facemedium);
         tvDialogJamSholat.setTypeface(facemedium);
@@ -322,7 +335,7 @@ public class JadwalSholatActivity extends BaseActivity<ListJadwalPresenter>  imp
         click_waktu(bsepuluhmenit,blimabelasmenit, blimamenit,btepat);
         click_waktu(btepat,blimabelasmenit, blimamenit,bsepuluhmenit);
 
-        //finally creating the alert dialog and displaying it
+
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 

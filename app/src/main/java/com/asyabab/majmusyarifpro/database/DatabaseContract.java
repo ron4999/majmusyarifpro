@@ -74,12 +74,16 @@ public class DatabaseContract {
         public static final String ID = "no";
         public static final String NAMA = "nama";
         public static final String STATUS = "status";
+        public static final String STATUS2 = "status2";
 
 
         static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NOTE + "("
                 + ID + " TEXT,"
                 + NAMA + " TEXT,"
-                + STATUS + " TEXT)";
+                + STATUS + " TEXT,"
+                + STATUS2 + " TEXT)";
+        public static final String QUERY_UPDATE= "UPDATE "+TABLE_NOTE+" SET " + STATUS + "=(?) WHERE "+NAMA+"= (?)";
+        public static final String QUERY_UPDATE2= "UPDATE "+TABLE_NOTE+" SET " + STATUS2 + "=(?) WHERE "+NAMA+"= (?)";
 
         public static final String QUERY_STATEMENT = "INSERT INTO " + TABLE_NOTE + "(" + ID + "," + NAMA + "," + STATUS + ") VALUES (?,?,?)";
     }
