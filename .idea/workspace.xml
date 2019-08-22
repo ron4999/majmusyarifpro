@@ -137,8 +137,7 @@
     <list default="true" id="55237696-6173-44ff-b66b-ca17ff7801e8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/listjadwal/JadwalSholatActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/listjadwal/JadwalSholatActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/database/DatabaseContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/database/DatabaseContract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -173,34 +172,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialogprayer.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
-              <caret line="105" column="20" selection-start-line="105" selection-start-column="20" selection-end-line="106" selection-end-column="46" />
+            <state relative-caret-position="884">
+              <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="168" column="33" selection-start-line="168" selection-start-column="33" selection-end-line="168" selection-end-column="33" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/listjadwal/JadwalSholatActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-611">
-              <caret line="198" column="33" lean-forward="true" selection-start-line="198" selection-start-column="33" selection-end-line="198" selection-end-column="33" />
+            <state relative-caret-position="3502">
+              <caret line="239" column="40" selection-start-line="239" selection-start-column="40" selection-end-line="239" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#14347#14348#0" expanded="true" />
-                <element signature="e#14400#14401#0" expanded="true" />
-                <element signature="e#14451#14452#0" expanded="true" />
-                <element signature="e#14498#14499#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -242,8 +237,8 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
-        <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -288,7 +283,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/test/java/com/asyabab/majmusyarifpro/ExampleUnitTest.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_kalender.xml" />
@@ -329,7 +323,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/raw/notes" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/utils/RawParser.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/row_listnotif.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/buttondesignclick.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/buttontextbacground.xml" />
@@ -339,6 +332,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/splascreen/SplashscreenPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/database/DatabaseContract.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/listjadwal/JadwalSholatActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/a.xml" />
       </list>
     </option>
   </component>
@@ -354,33 +349,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="MajmuSyarifPro" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="MajmuSyarifPro" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Scope 'Changed Files'; set:Changed Files; ALL; class com.intellij.packageDependencies.ChangeListScope">
-          <expand>
-            <path>
-              <item name="MajmuSyarifPro" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -403,6 +371,44 @@
               <item name="MajmuSyarifPro" type="b2602c69:ProjectViewProjectNode" />
               <item name="MajmuSyarifPro" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="gradle" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Changed Files'; set:Changed Files; ALL; class com.intellij.packageDependencies.ChangeListScope">
+          <expand>
+            <path>
+              <item name="MajmuSyarifPro" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="MajmuSyarifPro" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="MajmuSyarifPro" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="MajmuSyarifPro" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="MajmuSyarifPro" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
@@ -619,7 +625,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564034700834</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Update Jadwal Sholat">
+      <created>1564127501160</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1564127501160</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -650,19 +663,19 @@
       <window_info anchor="bottom" id="Logcat" order="2" weight="0.32961783" />
       <window_info anchor="bottom" id="DB Execution Console" order="3" />
       <window_info anchor="bottom" id="TODO" order="4" weight="0.32961783" />
-      <window_info anchor="bottom" id="Android Profiler" order="5" />
+      <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50075644" side_tool="true" visible="true" weight="0.3312102" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50226927" side_tool="true" visible="true" weight="0.3312102" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32961783" />
-      <window_info anchor="bottom" id="Build" order="9" sideWeight="0.49924356" visible="true" weight="0.3312102" />
+      <window_info anchor="bottom" id="Build" order="9" sideWeight="0.4977307" visible="true" weight="0.3312102" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32961783" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32961783" />
-      <window_info anchor="right" id="Device File Explorer" order="0" sideWeight="0.50593823" side_tool="true" visible="true" weight="0.33888048" />
+      <window_info anchor="right" id="Device File Explorer" order="0" sideWeight="0.50593823" side_tool="true" weight="0.33888048" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.32980332" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Preview" order="5" sideWeight="0.49406177" weight="0.33888048" />
+      <window_info anchor="right" id="Preview" order="5" sideWeight="0.49406177" visible="true" weight="0.38729197" />
       <window_info anchor="right" x="0" y="0" width="295" height="584" id="Documentation" order="6" sideWeight="0.50159234" side_tool="true" weight="0.42284417" />
       <window_info anchor="right" id="Assistant" order="7" weight="0.32980332" />
     </layout>
@@ -672,23 +685,10 @@
     <MESSAGE value="Update method konversi waktu string ke format Date" />
     <MESSAGE value="Update otomatis" />
     <MESSAGE value="Jadwal Sholat" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jadwal Sholat" />
+    <MESSAGE value="Update Jadwal Sholat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Jadwal Sholat" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/kalender/views/WrapContentViewPager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/kalender/interfaces/OnDateSelectedListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/view_custom_calendar.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
@@ -999,19 +999,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialogprayer.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="884">
+          <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/listjadwal/JadwalSholatActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="105" column="20" selection-start-line="105" selection-start-column="20" selection-end-line="106" selection-end-column="46" />
+        <state relative-caret-position="3502">
+          <caret line="239" column="40" selection-start-line="239" selection-start-column="40" selection-end-line="239" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/splascreen/SplashscreenPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1036,19 +1038,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/asyabab/majmusyarifpro/activity/listjadwal/JadwalSholatActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/a.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-611">
-          <caret line="198" column="33" lean-forward="true" selection-start-line="198" selection-start-column="33" selection-end-line="198" selection-end-column="33" />
+        <state relative-caret-position="34">
+          <caret line="2" column="158" selection-start-line="2" selection-start-column="158" selection-end-line="2" selection-end-column="158" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#14347#14348#0" expanded="true" />
-            <element signature="e#14400#14401#0" expanded="true" />
-            <element signature="e#14451#14452#0" expanded="true" />
-            <element signature="e#14498#14499#0" expanded="true" />
+            <element signature="e#4797#4811#0" expanded="true" />
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_compas.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_jadwal_sholat.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="168" column="33" selection-start-line="168" selection-start-column="33" selection-end-line="168" selection-end-column="33" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
 </project>
